@@ -52,3 +52,19 @@ alias lt='eza --tree --level=2 --icons'
 # bat —— 带语法高亮的 cat
 alias cat='bat --paging=never'
 export BAT_THEME='ansi'
+
+claude-dsv4pro() {
+  export ANTHROPIC_BASE_URL=https://api.deepseek.com/anthropic
+  export ANTHROPIC_AUTH_TOKEN="$(security find-generic-password -s claude-dsv4pro -w 2>/dev/null)"
+  if [[ -z "$ANTHROPIC_AUTH_TOKEN" ]]; then
+    echo "❌ 未找到 DeepSeek API Key，运行: security add-generic-password -s claude-dsv4pro -a \$USER -w"
+    return 1
+  fi
+  export ANTHROPIC_MODEL=deepseek-v4-pro[1m]
+  export ANTHROPIC_DEFAULT_OPUS_MODEL=deepseek-v4-pro[1m]
+  export ANTHROPIC_DEFAULT_SONNET_MODEL=deepseek-v4-pro[1m]
+  export ANTHROPIC_DEFAULT_HAIKU_MODEL=deepseek-v4-flash
+  export CLAUDE_CODE_SUBAGENT_MODEL=deepseek-v4-flash
+  export CLAUDE_CODE_EFFORT_LEVEL=max
+  claude "$@"
+}
