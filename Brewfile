@@ -11,6 +11,7 @@ brew "eza"               # ls 替代（图标/git 状态）
 brew "bat"               # cat 替代（语法高亮）
 brew "fzf"               # 模糊查找
 brew "ripgrep"           # grep 替代（极快）
+brew "fd"                # find 替代（television/fzf 的查找后端）
 brew "zoxide"            # 智能 cd
 brew "mise"              # 多语言版本管理
 brew "git-delta"         # git diff 高亮
