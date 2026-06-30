@@ -29,6 +29,16 @@ eval "$(starship init zsh)"     # 提示符
 eval "$(zoxide init zsh)"        # 智能 cd（z 跳转，zi 模糊选择）
 eval "$(mise activate zsh)"      # 多语言版本管理
 source <(fzf --zsh)              # 模糊查找（Ctrl-R 历史 / Ctrl-T 文件 / Alt-C 目录）
+eval "$(navi widget zsh)"        # 命令速查表（Ctrl-G 唤起）
+
+# yazi 文件管理器：用 y 启动，退出时自动 cd 到所在目录
+function y() {
+	local tmp="$(mktemp -t yazi-cwd.XXXXXX)" cwd
+	yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+	rm -f -- "$tmp"
+}
 
 # ============================================================
 # 别名

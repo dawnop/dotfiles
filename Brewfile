@@ -13,6 +13,14 @@ brew "fzf"               # 模糊查找
 brew "ripgrep"           # grep 替代（极快）
 brew "zoxide"            # 智能 cd
 brew "mise"              # 多语言版本管理
+brew "git-delta"         # git diff 高亮
+brew "television"        # 通用模糊查找器 (命令: tv)
+brew "navi"              # 交互式命令速查表
+brew "tldr"              # 命令速查（人话版 man）
+
+# ── TUI 工具 ──
+brew "lazygit"           # git TUI
+brew "yazi"              # 文件管理器
 
 # ── 编辑器 / 复用层（dawn.nvim 会用到）──
 brew "neovim"
