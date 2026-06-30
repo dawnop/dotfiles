@@ -22,6 +22,10 @@ brew "tldr"              # 命令速查（人话版 man）
 # ── TUI 工具 ──
 brew "lazygit"           # git TUI
 brew "yazi"              # 文件管理器
+# yazi 预览依赖
+brew "ffmpegthumbnailer" # 视频缩略图
+brew "poppler"           # PDF 预览
+brew "imagemagick"       # 图片预览
 
 # ── 编辑器 / 复用层（dawn.nvim 会用到）──
 brew "neovim"
