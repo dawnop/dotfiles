@@ -23,7 +23,7 @@ window-padding-y = 12
 # 新窗口初始大小（列 x 行）
 window-width = 120
 window-height = 34
-macos-titlebar-style = transparent
+macos-titlebar-style = tabs
 
 # ── 光标 ──
 cursor-style = block
@@ -47,3 +47,10 @@ keybind = cmd+opt+down=goto_split:down
 keybind = cmd+w=close_surface
 # 重载配置
 keybind = cmd+shift+comma=reload_config
+
+# ── Quick Terminal ──
+quick-terminal-position = top
+quick-terminal-screen = main
+quick-terminal-animation-duration = 0.2
+quick-terminal-autohide = true
+keybind = global:opt+grave_accent=toggle_quick_terminal
