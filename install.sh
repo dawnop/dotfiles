@@ -63,6 +63,12 @@ main() {
     # ── 3. starship 配置 ──
     link "$SCRIPT_DIR/starship/starship.toml" "$CONFIG_DIR/starship.toml"
 
+    # ── 3.5 其余 app 配置（ghostty / atuin / btop）──
+    mkdir -p "$CONFIG_DIR/ghostty" "$CONFIG_DIR/atuin" "$CONFIG_DIR/btop"
+    link "$SCRIPT_DIR/ghostty/config"     "$CONFIG_DIR/ghostty/config"
+    link "$SCRIPT_DIR/atuin/config.toml"  "$CONFIG_DIR/atuin/config.toml"
+    link "$SCRIPT_DIR/btop/btop.conf"     "$CONFIG_DIR/btop/btop.conf"
+
     # ── 4. 引用 dawn.nvim（nvim + tmux）──
     if [ -d "$DAWN_NVIM_DIR/.git" ]; then
         info "更新已存在的 dawn.nvim ..."
@@ -79,6 +85,9 @@ main() {
     echo "  - oh-my-zsh + 插件 (autosuggestions / syntax-highlighting)"
     echo "  - zsh      -> ~/.zshrc ~/.zprofile ~/.zshenv"
     echo "  - starship -> ~/.config/starship.toml"
+    echo "  - ghostty  -> ~/.config/ghostty/config"
+    echo "  - atuin    -> ~/.config/atuin/config.toml"
+    echo "  - btop     -> ~/.config/btop/btop.conf"
     echo "  - nvim/tmux -> 由 dawn.nvim 管理 ($DAWN_NVIM_DIR)"
     echo ""
     echo "下一步: brew bundle --file=$SCRIPT_DIR/Brewfile   # 安装工具链"

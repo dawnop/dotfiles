@@ -11,16 +11,20 @@
 | Prompt | [Starship](https://starship.rs)（gruvbox-rainbow preset） |
 | 编辑器 | Neovim ← [dawn.nvim](https://github.com/dawnop/dawn.nvim) |
 | 复用层 | tmux ← [dawn.nvim](https://github.com/dawnop/dawn.nvim) |
-| CLI 工具 | eza · bat · fzf · ripgrep · zoxide · mise |
+| CLI 工具 | eza · bat · fzf · ripgrep · zoxide · mise · [atuin](https://atuin.sh)（历史）· dust · procs · tokei |
+| 监控 | btop |
 
 ## 目录结构
 
 ```
 dotfiles/
-├── install.sh          # 装 oh-my-zsh + 插件，软链 zsh/starship，克隆并安装 dawn.nvim
+├── install.sh          # 装 oh-my-zsh + 插件，软链各配置，克隆并安装 dawn.nvim
 ├── Brewfile            # 一键安装工具链
 ├── zsh/                # .zshrc .zprofile .zshenv
-└── starship/           # starship.toml
+├── starship/           # starship.toml
+├── ghostty/            # config（终端配置）
+├── atuin/              # config.toml（shell 历史）
+└── btop/               # btop.conf（资源监控）
 ```
 
 > nvim 与 tmux 的配置**不在本仓库**，由 `install.sh` 自动 clone [dawn.nvim](https://github.com/dawnop/dawn.nvim) 到 `~/.config/dawn.nvim` 并运行其安装脚本。

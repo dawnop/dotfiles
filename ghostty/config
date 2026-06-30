@@ -1,0 +1,49 @@
+# ============================================================
+# Ghostty 配置
+# 改完保存后按 Cmd+Shift+, 重载，或重开窗口生效。
+# 查看所有可选项：ghostty +show-config --default --docs | less
+# ============================================================
+
+# ── 字体 ──
+font-family = "JetBrainsMono Nerd Font"
+font-size = 14
+# 字间距/行距微调（可选）
+adjust-cell-height = 12%
+
+# ── 主题 / 配色 ──
+# 内置主题，和 iTerm2 自带的 Solarized Dark 完全一致。
+# 浏览全部内置主题：ghostty +list-themes
+theme = iTerm2 Solarized Dark
+
+# ── 窗口 ──
+background-opacity = 0.95
+background-blur = 20
+window-padding-x = 12
+window-padding-y = 12
+# 新窗口初始大小（列 x 行）
+window-width = 120
+window-height = 34
+macos-titlebar-style = transparent
+
+# ── 光标 ──
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# ── 行为 ──
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+# 关闭确认弹窗（仅在无运行进程时直接关）
+confirm-close-surface = false
+
+# ── 快捷键（macOS 习惯）──
+# 分屏
+keybind = cmd+d=new_split:right
+keybind = cmd+shift+d=new_split:down
+keybind = cmd+opt+left=goto_split:left
+keybind = cmd+opt+right=goto_split:right
+keybind = cmd+opt+up=goto_split:up
+keybind = cmd+opt+down=goto_split:down
+keybind = cmd+w=close_surface
+# 重载配置
+keybind = cmd+shift+comma=reload_config
