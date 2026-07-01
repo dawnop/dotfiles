@@ -28,7 +28,7 @@ macos-titlebar-style = tabs
 # ── 光标 ──
 cursor-style = block
 cursor-style-blink = false
-shell-integration-features = no-cursor
+shell-integration-features = cursor
 
 # ── 行为 ──
 mouse-hide-while-typing = true
