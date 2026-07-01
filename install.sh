@@ -6,8 +6,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="${HOME}/.config"
-DAWN_NVIM_REPO="https://github.com/dawnop/dawn.nvim.git"
-DAWN_NVIM_DIR="${CONFIG_DIR}/dawn.nvim"
+DAWN_NVIM_DIR="${SCRIPT_DIR}/dawn.nvim"
 
 GREEN='\033[0;32m'; YELLOW='\033[0;33m'; RED='\033[0;31m'; NC='\033[0m'
 info() { echo -e "${GREEN}[INFO]${NC} $1"; }
@@ -76,14 +75,9 @@ main() {
     # clang-format 全局配置（~/.clang-format，作为所有项目的 fallback）
     link "$SCRIPT_DIR/clang-format/.clang-format" "$HOME/.clang-format"
 
-    # ── 4. 引用 dawn.nvim（nvim + tmux）──
-    if [ -d "$DAWN_NVIM_DIR/.git" ]; then
-        info "更新已存在的 dawn.nvim ..."
-        git -C "$DAWN_NVIM_DIR" pull --ff-only || warn "dawn.nvim 更新失败，跳过"
-    else
-        info "克隆 dawn.nvim ..."
-        git clone "$DAWN_NVIM_REPO" "$DAWN_NVIM_DIR"
-    fi
+    # ── 4. 初始化 dawn.nvim submodule（nvim + tmux）──
+    info "初始化 dawn.nvim submodule ..."
+    git -C "$SCRIPT_DIR" submodule update --init --recursive
     info "运行 dawn.nvim 安装脚本（配置 nvim + tmux）..."
     bash "$DAWN_NVIM_DIR/install.sh"
 
@@ -97,7 +91,7 @@ main() {
     echo "  - btop         -> ~/.config/btop/btop.conf"
     echo "  - clangd       -> ~/Library/Preferences/clangd/config.yaml"
     echo "  - clang-format -> ~/.clang-format"
-    echo "  - nvim/tmux -> 由 dawn.nvim 管理 ($DAWN_NVIM_DIR)"
+    echo "  - nvim/tmux -> 由 dawn.nvim submodule 管理 ($DAWN_NVIM_DIR)"
     echo ""
     echo "下一步: brew bundle --file=$SCRIPT_DIR/Brewfile   # 安装工具链"
     echo "        exec zsh                                   # 重载 shell"

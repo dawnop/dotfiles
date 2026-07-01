@@ -1,6 +1,4 @@
 .DS_Store
 *.swp
 *.backup.*
-# dawn.nvim 由 install.sh 在本地 clone，不纳入本仓库
-vendor/dawn.nvim/
 btop/btop.conf

@@ -1,6 +1,6 @@
 # dotfiles
 
-我的 macOS 开发环境配置（shell 层）。编辑器/复用层由独立项目 [dawn.nvim](https://github.com/dawnop/dawn.nvim) 管理，本仓库自动引用它。
+我的 macOS 开发环境配置（shell 层）。编辑器/复用层由 [dawn.nvim](https://github.com/dawnop/dawn.nvim) 作为 git submodule 管理。
 
 ## 技术栈
 
@@ -20,23 +20,24 @@
 
 ```
 dotfiles/
-├── install.sh          # 装 oh-my-zsh + 插件，软链各配置，克隆并安装 dawn.nvim
+├── install.sh          # 装 oh-my-zsh + 插件，软链各配置，初始化 dawn.nvim submodule
 ├── Brewfile            # 一键安装工具链
 ├── zsh/                # .zshrc .zprofile .zshenv
 ├── starship/           # starship.toml
 ├── ghostty/            # config（终端配置，含 Quick Terminal）
 ├── atuin/              # config.toml（shell 历史）
-├── btop/               # btop.conf（资源监控）
+├── btop/               # btop.conf（资源监控，不纳入版本控制）
 ├── clangd/             # config.yaml → ~/Library/Preferences/clangd/config.yaml（macOS 全局 C++ 标准等）
-└── clang-format/       # .clang-format → ~/.clang-format（全局代码格式 fallback）
+├── clang-format/       # .clang-format → ~/.clang-format（全局代码格式 fallback）
+└── dawn.nvim/          # submodule → github.com/dawnop/dawn.nvim（nvim + tmux）
 ```
 
-> nvim 与 tmux 的配置**不在本仓库**，由 `install.sh` 自动 clone [dawn.nvim](https://github.com/dawnop/dawn.nvim) 到 `~/.config/dawn.nvim` 并运行其安装脚本。
+> nvim 与 tmux 的配置由 `dawn.nvim/` submodule 管理，`install.sh` 会自动 `submodule update --init` 并运行其安装脚本。更新 dawn.nvim：`git submodule update --remote dawn.nvim`，然后在本仓库提交 submodule 指针。
 
 ## 安装
 
 ```bash
-git clone https://github.com/dawnop/dotfiles.git ~/workspace/dotfiles
+git clone --recursive https://github.com/dawnop/dotfiles.git ~/workspace/dotfiles
 cd ~/workspace/dotfiles
 
 # 1. 安装工具链（含 Nerd Font）
