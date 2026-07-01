@@ -1,0 +1,24 @@
+# Global fallback flags.
+CompileFlags:
+  Add:
+    - -std=c++23
+    - -Wall
+    - -Wextra
+
+---
+
+# CUDA intellisense on macOS (no real CUDA toolkit / GPU required).
+# Headers were assembled into ~/.local/cuda from the nvidia-*-cu12 pip wheels.
+# This block ONLY applies to .cu/.cuh files, so normal C/C++ is untouched.
+If:
+  PathMatch: [.*\.cu, .*\.cuh]
+CompileFlags:
+  Add:
+    - -xcuda
+    - --cuda-path=/Users/dawn/.local/cuda
+    - --cuda-gpu-arch=sm_86          # adjust to your GPU (sm_75/86/89/90…)
+    - -std=c++17
+    - -D__CLANGD__                   # enables the legacy-launch shim below
+    - -include
+    - /Users/dawn/.local/cuda/clangd_cuda_shim.h
+    - -Wno-unknown-cuda-version

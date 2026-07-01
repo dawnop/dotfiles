@@ -26,7 +26,9 @@ dotfiles/
 ├── starship/           # starship.toml
 ├── ghostty/            # config（终端配置，含 Quick Terminal）
 ├── atuin/              # config.toml（shell 历史）
-└── btop/               # btop.conf（资源监控）
+├── btop/               # btop.conf（资源监控）
+├── clangd/             # config.yaml → ~/Library/Preferences/clangd/config.yaml（macOS 全局 C++ 标准等）
+└── clang-format/       # .clang-format → ~/.clang-format（全局代码格式 fallback）
 ```
 
 > nvim 与 tmux 的配置**不在本仓库**，由 `install.sh` 自动 clone [dawn.nvim](https://github.com/dawnop/dawn.nvim) 到 `~/.config/dawn.nvim` 并运行其安装脚本。
