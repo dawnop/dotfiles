@@ -2,6 +2,16 @@
 # clang-format searches from a file's directory upward, so this acts as the
 # global default for anything under $HOME that has no closer .clang-format.
 # A project can override it by placing its own .clang-format in its root.
+#
+# Key choices (CLion defaults):
+#   IndentWidth: 4, ContinuationIndentWidth: 8 — 4-space indent, wrapped lines +8
+#   AccessModifierOffset: -4   — public:/private: dedented back to column 0
+#   NamespaceIndentation: All  — namespace bodies are indented
+#   BreakBeforeBraces: Custom  — attached braces (int f() { on same line)
+#   PointerAlignment: Right    — int *p, not int* p
+#   ColumnLimit: 0             — no automatic line wrapping (CLion wraps in-editor)
+#
+# Verify: clang-format --style=file -dump-config | grep -E 'IndentWidth|ColumnLimit|NamespaceIndentation'
 ---
 Language: Cpp
 BasedOnStyle: LLVM

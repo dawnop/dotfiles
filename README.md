@@ -59,6 +59,46 @@ exec zsh
 - **yazi**：用 `y` 启动（而非 `yazi`），退出时自动 cd 到文件管理器当前目录。
 - **Quick Terminal**：`opt+\`` 全局唤起 Ghostty 悬浮终端（从屏幕顶部滑出）。
 
+<details>
+<summary><strong>CUDA intellisense on macOS（无 GPU / 无 toolkit）</strong></summary>
+
+macOS 没有官方 CUDA toolkit，但可以用 clang 的 CUDA 前端 + 伪 toolkit headers 实现 `.cu`/`.cuh` 的补全、语义检查和高亮。
+
+**需要手动搭建的文件**（不在本仓库，需在新机器上复现）：
+
+| 路径 | 内容 |
+|------|------|
+| `~/.local/cuda/include/` | ~105 个 CUDA headers，从 `nvidia-*-cu12` pip wheels 解包 |
+| `~/.local/cuda/nvvm/libdevice/libdevice.10.bc` | libdevice bitcode（`--cuda-path` 要求存在） |
+| `~/.local/cuda/bin/ptxas` | placeholder 可执行文件 |
+| `~/.local/cuda/version.txt` | 内容：`CUDA Version 12.3.0` |
+| `~/.local/cuda/clangd_cuda_shim.h` | 见下方 shim 代码 |
+
+clangd 配置已在本仓库 `clangd/config.yaml` 中（仅对 `.cu`/`.cuh` 生效，不影响普通 C++）。
+
+**复现步骤：**
+
+```sh
+mkdir -p ~/.local/cuda/{include,nvvm/libdevice,bin}
+pip download nvidia-cuda-runtime-cu12 nvidia-curand-cu12 --no-deps -d /tmp/cu
+# 解压 wheel（zip 格式），将 include/*.h 复制到 ~/.local/cuda/include/
+echo 'CUDA Version 12.3.0' > ~/.local/cuda/version.txt
+touch ~/.local/cuda/bin/ptxas && chmod +x ~/.local/cuda/bin/ptxas
+```
+
+**clangd_cuda_shim.h**（处理 clang 不识别 CUDA 版本时的 legacy launch API）：
+
+```cpp
+#ifdef __CLANGD__
+extern "C" cudaError_t cudaConfigureCall(dim3 gridDim, dim3 blockDim,
+                                         size_t sharedMem = 0, cudaStream_t stream = 0);
+#endif
+```
+
+验证：打开一个 `.cu` 文件，`:LspInfo` 应报告 0 errors。
+
+</details>
+
 ### Claude Code
 
 `claude` 函数自动透传本地代理（port 7897），无需手动设置环境变量：
